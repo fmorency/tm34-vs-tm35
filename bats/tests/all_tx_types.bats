@@ -97,7 +97,7 @@ function check_account() {
 
     # Create
     many_a "$(pem 1)" 8001 account.create '{0: "Foobar", 1: {"'$(identity 2)'": ["canLedgerTransact"]}, 2: [0]}'
-    account=$(echo "${output}" | grep -oP "h'\K\w+" | xargs many id)
+    account=$(echo "${output}" | grep -oP "h'\K\w+" | xargs "$GIT_ROOT/a-bins/many" id)
     many_a "$(pem 1)" 8001 account.info '{0: "'${account}'"}'
     assert_output --partial "Foobar"
     many_b "$(pem 1)" 8003 account.info '{0: "'${account}'"}'
